@@ -1,6 +1,7 @@
 var http = require('http');
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('button_db.db');
+var fs = require('fs');
 
 function readDb() {
   var response = db.all("SELECT ROWID, datetime from button_info", function(err,rows) {
@@ -11,16 +12,18 @@ function readDb() {
 }
 
 function handleRequest(request, response) {
-  readDb();
-  response.writeHead(200, {'Content-Type': 'text/plain'});
-  var responseBody = "";
-  responseBody += "<html>";
-  responseBody += "<body>";
-  responseBody += "<h1>Button Presses</h1>";
-  responseBody += 
-  responseBody += "</body>";
-  responseBody += "</html>";
-  response.end(responseBody);
+  response.writeHead(200, {'Content-Type': 'text/html'});
+  var responseBody = '';
+  responseBody += "<h1>Button Presses</h1>\n";
+  responseBody += fs.readFileSync('button_html.html');
+  db.all("SELECT ROWID, datetime from button_info", function(err,rows) {
+    rows.forEach(function(currentRow) {
+      dbResponse = "Entry " + currentRow.rowid + ": " + currentRow.datetime  + "<br />";
+      responseBody += dbResponse;
+    })
+    response.end(responseBody);
+    console.log("Response sent.")
+  });
 }
 
 /* http.createServer(function (request, response) {
