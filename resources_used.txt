@@ -1,0 +1,6 @@
+Database / sqlite3:
+Used https://codeforgeek.com/2014/07/node-sqlite-tutorial/
+Also used http://dalelane.co.uk/blog/?p=3152
+
+Web server:
+http://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
