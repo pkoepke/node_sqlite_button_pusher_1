@@ -5,8 +5,9 @@ Run webserver.js to start the server, and hit up the web server (localhost for l
 Sites used:
 
 Database / sqlite3:
-Used https://codeforgeek.com/2014/07/node-sqlite-tutorial/
-Also used http://dalelane.co.uk/blog/?p=3152
+Started from  https://codeforgeek.com/2014/07/node-sqlite-tutorial/
+http://dalelane.co.uk/blog/?p=3152
+https://github.com/mapbox/node-sqlite3/wiki/API
 
 Web server:
 http://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
