@@ -3,14 +3,14 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('button_db.db');
 
-function writeToButtonDb() {
+function writeToButtonDb(ipAddress) {
 
   db.serialize(function() {
 
     db.run("CREATE TABLE if not exists button_info (datetime TEXT)");
-    var stmt = db.prepare("INSERT INTO button_info VALUES (?)");
+    var stmt = db.prepare("INSERT INTO button_info VALUES (?,?)");
 
-    stmt.run(Date());
+    stmt.run(Date(), ipAddress);
 
     stmt.finalize();
 

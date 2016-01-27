@@ -20,7 +20,8 @@ function readDb() {
 function handleRequest(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   var requestUrl = request.url.toString();
-  var responseBody = "<h1>Button Presses</h1>\n";
+  var responseBody = fs.readFileSync('material_design_CSS_scripts_links.html')
+  responseBody += "<h1>Button Presses</h1>\n";
   responseBody += fs.readFileSync('button_html.html');
   responseBody += "<p>Current path: " + request.url + "</p><p>Current client's IP address: " + request.connection.remoteAddress + "</p>";
   if (request.url.indexOf("favicon.ico") != -1) {
@@ -36,11 +37,12 @@ function handleRequest(request, response) {
     response.end(responseBody);
   } else if (request.url.indexOf("push_button") != -1) {
     response.end("You pushed the button!");
-    buttonDbWrite();
+    buttonDbWrite(request.connection.remoteAddress);
   } else {
-    db.all("SELECT ROWID, datetime from button_info", function(err,rows) {
+    db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
       rows.forEach(function(currentRow) {
-        dbResponse = "Entry " + currentRow.rowid + ": " + currentRow.datetime  + "<br />";
+        console.log(currentRow);
+        dbResponse = "Entry " + currentRow.rowid + ": " + currentRow.datetime + " | Client IP address: " + currentRow.clientIp + "<br />";
         responseBody += dbResponse;
       })
       response.end(responseBody); // had to put this within the db.all call, which is async. If it's outside db.all then response.end runs before the async db.all call can finish so parts of the response are missing. This could be improved using promises so response.end would be called after db.all.

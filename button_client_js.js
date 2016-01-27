@@ -1,6 +1,9 @@
 function emptyFunction() {}
 
 function httpGetAsync(theUrl, callback) {
+  if (typeof callback === 'undefined') {
+    callback = emptyFunction;
+  }
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
