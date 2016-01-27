@@ -23,6 +23,6 @@ function writeToButtonDb() {
 
 module.exports = writeToButtonDb;
 
-writeToButtonDb();
+// writeToButtonDb(); // un-comment this if running the script directly. If it's uncommented when the web server starts up then it writes to the DB as webserver.js grabs it.
 
 // db.close(); // caused errors in webserver.js, so commented this out so it doesn't close the DB connection.

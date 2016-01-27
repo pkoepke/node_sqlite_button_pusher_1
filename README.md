@@ -14,3 +14,5 @@ http://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
 http://blog.modulus.io/build-your-first-http-server-in-nodejs
 
 Serving an image: http://stackoverflow.com/a/5826883
+
+Client JS to read a URL: http://stackoverflow.com/a/4033310

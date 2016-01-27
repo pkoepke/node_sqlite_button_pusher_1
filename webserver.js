@@ -38,14 +38,14 @@ function handleRequest(request, response) {
     response.end("You pushed the button!");
     buttonDbWrite();
   } else {
-  db.all("SELECT ROWID, datetime from button_info", function(err,rows) {
-    rows.forEach(function(currentRow) {
-      dbResponse = "Entry " + currentRow.rowid + ": " + currentRow.datetime  + "<br />";
-      responseBody += dbResponse;
-    })
-    response.end(responseBody); // had to put this within the db.all call, which is async. If it's outside db.all then response.end runs before the async db.all call can finish so parts of the response are missing. This could be improved using promises so response.end would be called after db.all.
-  });
-}
+    db.all("SELECT ROWID, datetime from button_info", function(err,rows) {
+      rows.forEach(function(currentRow) {
+        dbResponse = "Entry " + currentRow.rowid + ": " + currentRow.datetime  + "<br />";
+        responseBody += dbResponse;
+      })
+      response.end(responseBody); // had to put this within the db.all call, which is async. If it's outside db.all then response.end runs before the async db.all call can finish so parts of the response are missing. This could be improved using promises so response.end would be called after db.all.
+    });
+  }
   console.log("Response sent, path \"" + request.url + "\""); // this results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, and any included script or CSS files.
   console.log("Client's IP address: " + request.connection.remoteAddress)
 }
