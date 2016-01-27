@@ -21,7 +21,7 @@ function handleRequest(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   var requestUrl = request.url.toString();
   var responseBody = '';
-  if (request.url.indexOf("push_button") != -1) {
+  if (request.url.indexOf("push_button/") != -1) {
     response.end("You pushed the button!");
     buttonDbWrite();
   } else {
@@ -41,8 +41,8 @@ function handleRequest(request, response) {
 /* http.createServer(function (request, response) {
     response.writeHead(200, {'Content-Type': 'text/plain'});
     response.end('Hello World\n');
-}).listen(1337, '127.0.0.1'); */
+}).listen(listenPort, '127.0.0.1'); */
 
 // Start the web server, direct all requests to handleRequest()
 http.createServer(handleRequest).listen(listenPort, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
+console.log('Server running at http://127.0.0.1:' + listenPort + '/');

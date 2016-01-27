@@ -25,4 +25,4 @@ module.exports = writeToButtonDb;
 
 writeToButtonDb();
 
-db.close(); // caused errors in webserver.js, so removed it from writeToButtonDb() function.
+// db.close(); // caused errors in webserver.js, so commented this out so it doesn't close the DB connection.
