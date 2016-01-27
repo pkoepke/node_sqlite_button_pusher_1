@@ -2,7 +2,7 @@
 // also used http://dalelane.co.uk/blog/?p=3152
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('button_db.db');
-var check;
+
 db.serialize(function() {
 
   db.run("CREATE TABLE if not exists button_info (datetime TEXT)");

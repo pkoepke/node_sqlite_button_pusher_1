@@ -1,1 +1,13 @@
 A simple program for playing around with service files over HTTP with Nodejs. Just records timestamps of button presses in a sqlite database and returns a list of those timestamps in the web page.
+
+Run webserver.js to start the server, and hit up the web server (localhost for local testing) on the right port to test it out.
+
+Sites used:
+
+Database / sqlite3:
+Used https://codeforgeek.com/2014/07/node-sqlite-tutorial/
+Also used http://dalelane.co.uk/blog/?p=3152
+
+Web server:
+http://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
+http://blog.modulus.io/build-your-first-http-server-in-nodejs
