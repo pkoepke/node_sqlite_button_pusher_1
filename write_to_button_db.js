@@ -3,19 +3,26 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('button_db.db');
 
-db.serialize(function() {
+function writeToButtonDb() {
 
-  db.run("CREATE TABLE if not exists button_info (datetime TEXT)");
-  var stmt = db.prepare("INSERT INTO button_info VALUES (?)");
+  db.serialize(function() {
 
-  stmt.run(Date());
+    db.run("CREATE TABLE if not exists button_info (datetime TEXT)");
+    var stmt = db.prepare("INSERT INTO button_info VALUES (?)");
 
-  stmt.finalize();
+    stmt.run(Date());
 
-  db.each("SELECT ROWID, datetime FROM button_info", function(err, row) {
-    console.log(row);
-    //console.log(row.id + ": " + row.info);
+    stmt.finalize();
+
+    db.each("SELECT ROWID, datetime FROM button_info", function(err, row) {
+      //console.log(row);
+      console.log("Entry " + row.rowid + ": " + row.datetime);
+    });
   });
-});
+}
 
-db.close();
+module.exports = writeToButtonDb;
+
+writeToButtonDb();
+
+db.close(); // caused errors in webserver.js, so removed it from writeToButtonDb() function.
