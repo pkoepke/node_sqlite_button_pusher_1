@@ -12,3 +12,5 @@ https://github.com/mapbox/node-sqlite3/wiki/API
 Web server:
 http://stackoverflow.com/questions/6084360/using-node-js-as-a-simple-web-server
 http://blog.modulus.io/build-your-first-http-server-in-nodejs
+
+Serving an image: http://stackoverflow.com/a/5826883

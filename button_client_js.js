@@ -1,3 +1,4 @@
-function buttonClicked() {
+function pushButton() {
+  var ajaxRequest = new XMLHttpRequest();
   
 }
