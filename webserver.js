@@ -4,7 +4,7 @@ var db = new sqlite3.Database('button_db.db');
 var fs = require('fs');
 var buttonDbWrite = require('./write_to_button_db.js');
 
-const listenPort = 1337;
+const listenPort = 8080;
 
 // Just here for testing.
 /*
