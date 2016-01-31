@@ -36,9 +36,11 @@ function handleRequest(request, response) {
     responseBody = fs.readFileSync('button_client_js.js');
     response.end(responseBody);
   } else if (request.url.indexOf("push_button") != -1) {
+    // handle /push_button/
     response.end("You pushed the button!");
     buttonDbWrite(request.connection.remoteAddress);
   } else {
+    // Finish the response by gathering all the button clicks
     db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
       rows.forEach(function(currentRow) {
         console.log(currentRow);
