@@ -57,6 +57,7 @@ function serveMainPage(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   var requestUrl = request.url.toString();
   var responseBody = "";
+  responseBody += "<script src='client_js.js'></script>\n"
   // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "<h1>Button Presses</h1>\n";
   responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteButtonPushesDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
@@ -66,7 +67,6 @@ function serveMainPage(request, response) {
   readFromButtonDb(responseBody, function(responseBodyReturn) {
     // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
     responseBodyReturn += "</div>\n"
-    responseBodyReturn += "<script src='client_js.js'></script>\n"
     response.end(responseBodyReturn);
   });
 }
