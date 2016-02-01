@@ -63,18 +63,10 @@ function serveMainPage(request, response) {
   var responseBody = "";
   // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "<h1>Button Presses</h1>\n";
-  responseBody += fs.readFileSync('button_html.html');
+  responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteButtonPushesDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
   responseBody += "<p>Current path: " + request.url + "</p>\n<p>Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
   responseBody += "<div id=\"buttonPushes\">\n"
   // Finish the response by gathering all the button clicks
-  /*db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
-    rows.forEach(function(currentRow) {
-      responseBody += "Entry " + currentRow.rowid + ": <span class=\"buttonPushTime\">" + currentRow.datetime + "</span> | Client IP address: " + currentRow.clientIp + "<br />\n";
-    });
-    responseBody += "</div>"
-    responseBody += "<script src='client_js.js'></script>"
-    response.end(responseBody); // had to put this within the db.all call, which is async. If it's outside db.all then response.end runs before the async db.all call can finish so parts of the response are missing. This could be improved using promises so response.end would be called after db.all.
-  });*/
   db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
     responseBody += returnAllDbEntries(rows);
     responseBody += "</div>\n"
