@@ -4,7 +4,8 @@ var http = require('http');
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('button_db.db');
 var fs = require('fs');
-var buttonDbWrite = require('./write_to_button_db.js');
+var writeToButtonDb = require('./write_to_button_db.js');
+var readFromButtonDb = require('./read_from_button_db.js');
 
 var listenPort = 8080; // was const but const is not supported in strict mode
 
@@ -39,21 +40,13 @@ function serveButtonClientJs(request, response) {
   });
 }
 
-function returnAllDbEntries(rows) {
-  var returnRows = "";
-  rows.forEach(function(currentRow) {
-    returnRows += "Entry " + currentRow.rowid + ": <span class=\"buttonPushTime\">" + currentRow.datetime + "</span> | Client IP address: " + currentRow.clientIp + "<br />\n";
-  });
-  return returnRows;
-}
-
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
-  buttonDbWrite(request.connection.remoteAddress);
-  var responseBody = "";
-  db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
-    responseBody += returnAllDbEntries(rows);
-    response.end(responseBody); // had to put this within the db.all call, which is async. If it's outside db.all then response.end runs before the async db.all call can finish so parts of the response are missing. This could be improved using promises so response.end would be called after db.all.
+  writeToButtonDb(request.connection.remoteAddress, function() {
+    var responseBody = "";
+    readFromButtonDb(responseBody, function(responseBodyReturn) {
+      response.end(responseBodyReturn);
+    });
   });
 }
 
@@ -67,11 +60,11 @@ function serveMainPage(request, response) {
   responseBody += "<p>Current path: " + request.url + "</p>\n<p>Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
   responseBody += "<div id=\"buttonPushes\">\n"
   // Finish the response by gathering all the button clicks
-  db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
-    responseBody += returnAllDbEntries(rows);
-    responseBody += "</div>\n"
-    responseBody += "<script src='client_js.js'></script>\n"
-    response.end(responseBody); // had to put this within the db.all call, which is async. If it's outside db.all then response.end runs before the async db.all call can finish so parts of the response are missing. This could be improved using promises so response.end would be called after db.all.
+  readFromButtonDb(responseBody, function(responseBodyReturn) {
+    // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
+    responseBodyReturn += "</div>\n"
+    responseBodyReturn += "<script src='client_js.js'></script>\n"
+    response.end(responseBodyReturn);
   });
 }
 

@@ -2,13 +2,11 @@
 
 function httpGetAsync(theUrl, callback) {
   // default to an empty function if no callback is specified
-  if (typeof callback === 'undefined') {
-    callback = function() {};
-  }
+  if (typeof callback === 'undefined') { callback = function() {}; }
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-      console.log(xmlHttp.responseText);
+      //console.log(xmlHttp.responseText); // for testing
       callback(xmlHttp.responseText);
     }
   };

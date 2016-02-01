@@ -1,14 +1,16 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('button_db.db');
 
-var response = db.all("SELECT ROWID, datetime from button_info", function(err,rows) {
-  rows.forEach(function(currentRow) {
-    console.log("Entry " + currentRow.rowid + ": " + currentRow.datetime);
-    var myDate = new Date(currentRow.datetime);
-    myDate = myDate.getTime();
-    myDate = new Date(myDate);
-    console.log(myDate);
-  })
-});
+function readFromButtonDb(responseBody, callback) {
+  // default to an empty function if no callback is specified
+  if (typeof callback === 'undefined') { callback = function() {}; }
+  var returnRows = "";
+  db.all("SELECT ROWID, datetime, clientIp from button_info", function(err,rows) {
+    rows.forEach(function(currentRow) {
+      responseBody += "Entry " + currentRow.rowid + ": <span class=\"buttonPushTime\">" + currentRow.datetime + "</span> | Client IP address: " + currentRow.clientIp + "<br />\n";
+    });
+    callback(responseBody);
+  });
+}
 
-db.close();
+module.exports = readFromButtonDb;
