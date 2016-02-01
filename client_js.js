@@ -1,18 +1,23 @@
-"use strict";
-
-function emptyFunction() {}
+//"use strict";
 
 function httpGetAsync(theUrl, callback) {
+  // default to an empty function if no callback is specified
   if (typeof callback === 'undefined') {
-    callback = emptyFunction;
+    callback = function() {};
   }
   var xmlHttp = new XMLHttpRequest();
   xmlHttp.onreadystatechange = function() {
-    if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+    if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+      console.log(xmlHttp.responseText);
       callback(xmlHttp.responseText);
+    }
   };
   xmlHttp.open("GET", theUrl, true); // true for asynchronous
   xmlHttp.send(null);
+}
+
+function overWriteButtonPushesDiv(responseText) {
+  document.getElementById("buttonPushes").innerHTML = responseText;
 }
 
 function convertTimeToClientTimezone(dateTimeToConvert) {

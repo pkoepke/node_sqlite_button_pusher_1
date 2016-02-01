@@ -15,10 +15,11 @@ function writeToButtonDb(ipAddress) {
     stmt.finalize();
 
     db.each("SELECT ROWID, datetime FROM button_info", function(err, row) {
-      //console.log(row);
-      console.log("Entry " + row.rowid + ": " + row.datetime);
+      //console.log(row); // for testing
+      //console.log("Entry " + row.rowid + ": " + row.datetime); // for testing
     });
   });
+  console.log("writeToButtonDb() ran.");
 }
 
 module.exports = writeToButtonDb;
