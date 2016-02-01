@@ -43,11 +43,11 @@ function serveButtonClientJs(request, response) {
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
-    console.log("writeToButtonDb() finished and moved on to its callback")
+    // console.log("writeToButtonDb() finished and moved on to its callback"); // for testing
     var responseBody = "";
     /*setTimeout(*/readFromButtonDb(responseBody,
       function(responseBodyReturn) {
-        console.log("readFromButtonDb() finished and moved on to its callback");
+        // console.log("readFromButtonDb() finished and moved on to its callback"); // for testing
         response.end(responseBodyReturn);
       })/*, 5000)*/
   });

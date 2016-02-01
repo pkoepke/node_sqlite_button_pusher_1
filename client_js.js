@@ -16,6 +16,7 @@ function httpGetAsync(theUrl, callback) {
 
 function overWriteButtonPushesDiv(responseText) {
   document.getElementById("buttonPushes").innerHTML = responseText;
+  convertAllTimesToClientTimezone();
 }
 
 function convertTimeToClientTimezone(dateTimeToConvert) {
@@ -32,4 +33,4 @@ function convertAllTimesToClientTimezone() {
   }
 }
 
-convertAllTimesToClientTimezone();
+window.addEventListener('load',convertAllTimesToClientTimezone,false);
