@@ -20,7 +20,7 @@ function handleRequest(request, response) {
   } else { // all other URLs get the main page with the button and entries
     serveMainPage(request, response);
   }
-  console.log("Response sent, path '" + request.url + "'. " + "Client's IP address: " + request.connection.remoteAddress); // this results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, and any included script or CSS files.
+  // console.log("Response sent, path '" + request.url + "'. " + "Client's IP address: " + request.connection.remoteAddress); // For testing. This results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, and any included script or CSS files.
 }
 
 function serveFavicon(request, response) {
@@ -43,10 +43,13 @@ function serveButtonClientJs(request, response) {
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
+    console.log("writeToButtonDb() finished and moved on to its callback")
     var responseBody = "";
-    readFromButtonDb(responseBody, function(responseBodyReturn) {
-      response.end(responseBodyReturn);
-    });
+    /*setTimeout(*/readFromButtonDb(responseBody,
+      function(responseBodyReturn) {
+        console.log("readFromButtonDb() finished and moved on to its callback");
+        response.end(responseBodyReturn);
+      })/*, 5000)*/
   });
 }
 

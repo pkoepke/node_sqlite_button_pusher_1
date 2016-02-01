@@ -11,14 +11,13 @@ function writeToButtonDb(ipAddress, callback) {
     db.run("CREATE TABLE if not exists button_info (datetime TEXT)");
     var stmt = db.prepare("INSERT INTO button_info VALUES (?,?)");
     stmt.run(Date(), ipAddress);
-    stmt.finalize();
-    db.each("SELECT ROWID, datetime FROM button_info", function(err, row) {
+    stmt.finalize(callback); // writeToButtonDb callback goes here so the callback does not run until the statement is done running.
+    /*db.each("SELECT ROWID, datetime FROM button_info", function(err, row) {
       //console.log(row); // for testing
-      //console.log("Entry " + row.rowid + ": " + row.datetime); // for testing
-    });
+      // console.log("Entry " + row.rowid + ": " + row.datetime); // for testing
+    }); */// for testing
   });
-  console.log("writeToButtonDb() ran.");
-  callback();
+  // console.log("writeToButtonDb() ran."); // for testing
 }
 
 module.exports = writeToButtonDb;
