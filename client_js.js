@@ -14,8 +14,8 @@ function httpGetAsync(theUrl, callback) {
   xmlHttp.send(null);
 }
 
-function overWriteButtonPushesDiv(responseText) {
-  document.getElementById("buttonPushes").innerHTML = responseText;
+function overWriteEverythingAfterButtonDiv(responseText) {
+  document.getElementById("everythingAfterButton").innerHTML = responseText;
   convertAllTimesToClientTimezone();
 }
 

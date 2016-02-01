@@ -44,7 +44,8 @@ function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
     // console.log("writeToButtonDb() finished and moved on to its callback"); // for testing
-    var responseBody = "";
+    var responseBody = "<div id=\"everythingAfterButton\">\n";
+    responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
     /*setTimeout(*/readFromButtonDb(responseBody,
       function(responseBodyReturn) {
         // console.log("readFromButtonDb() finished and moved on to its callback"); // for testing
@@ -60,9 +61,9 @@ function serveMainPage(request, response) {
   responseBody += "<script src='client_js.js'></script>\n"
   // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "<h1>Button Presses</h1>\n";
-  responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteButtonPushesDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
-  responseBody += "<p>Current path: " + request.url + "</p>\n<p>Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
-  responseBody += "<div id=\"buttonPushes\">\n"
+  responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
+  responseBody += "<div id=\"everythingAfterButton\">\n";
+  responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
   // Finish the response by gathering all the button clicks
   readFromButtonDb(responseBody, function(responseBodyReturn) {
     // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
