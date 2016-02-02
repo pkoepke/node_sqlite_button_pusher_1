@@ -59,7 +59,7 @@ function serveMainPage(request, response) {
   var requestUrl = request.url.toString();
   var responseBody = "";
   responseBody += "<script src='client_js.js'></script>\n"
-  // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
+  responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "<h1>Button Presses</h1>\n";
   responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
   responseBody += "<div id=\"everythingAfterButton\">\n";
