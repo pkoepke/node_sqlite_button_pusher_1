@@ -14,7 +14,9 @@ function handleRequest(request, response) {
   if (request.url.indexOf("favicon.ico") != -1) { // handle favicon.ico
     serveFavicon(request, response);
   } else if(request.url.indexOf("client_js.js") != -1) { // handle client_js.js
-    serveButtonClientJs(request, response);
+    serveClientJs(request, response);
+  } else if (request.url.indexOf("styles.css") != -1) {
+    serveStylesCss(request, response);
   } else if (request.url.indexOf("push_button") != -1) { // handle /push_button/
     handlePushButton(request, response);
   } else { // all other URLs get the main page with the button and entries
@@ -33,10 +35,17 @@ function serveFavicon(request, response) {
   });
 }
 
-function serveButtonClientJs(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/html'});
+function serveClientJs(request, response) {
+  response.writeHead(200, {'Content-Type': 'application/javascript'});
   fs.readFile('./client_js.js', function (err, clientJsFile) {
     response.end(clientJsFile);
+  });
+}
+
+function serveStylesCss(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/css'});
+  fs.readFile('./styles.css', function (err, stylesCssFile) {
+    response.end(stylesCssFile);
   });
 }
 
@@ -57,9 +66,11 @@ function handlePushButton(request, response) {
 function serveMainPage(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   var requestUrl = request.url.toString();
-  var responseBody = "";
-  responseBody += "<script src='client_js.js'></script>\n"
+  var responseBody = "<html><head>";
+  responseBody += "<script src='client_js.js'></script>\n";
+  responseBody += "<link rel=\"stylesheet\" href=\"styles.css\">";
   responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
+  responseBody += "</head>\n<body>\n";
   responseBody += "<h1>Button Presses</h1>\n";
   responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
   responseBody += "<div id=\"everythingAfterButton\">\n";
@@ -67,7 +78,7 @@ function serveMainPage(request, response) {
   // Finish the response by gathering all the button clicks
   readFromButtonDb(responseBody, function(responseBodyReturn) {
     // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
-    responseBodyReturn += "</div>\n"
+    responseBodyReturn += "</div>\n</body>\n</html>"
     response.end(responseBodyReturn);
   });
 }
