@@ -1,2 +1,36 @@
 Server running at http://127.0.0.1:8080/
 Server running at http://127.0.0.1:8080/
+Server running at http://127.0.0.1:8080/
+Server running at http://127.0.0.1:8080/
+Server running at http://127.0.0.1:8080/
+Server running at http://127.0.0.1:8080/
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:904:11)
+    at Server._listen2 (net.js:1042:14)
+    at listen (net.js:1064:10)
+    at Server.listen (net.js:1138:5)
+    at Object.<anonymous> (/home/pi/node_sqlite_button_pusher_1/webserver.js:101:34)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+    at Function.Module.runMain (module.js:497:10)
+Server running at http://127.0.0.1:8080/
+
+/home/pi/node_sqlite_button_pusher_1/webserver.js:97
+  response.writeHead(200, {'Content-Type': 'text/html'});
+           ^
+TypeError: Cannot call method 'writeHead' of undefined
+    at serveMainPage (/home/pi/node_sqlite_button_pusher_1/webserver.js:97:12)
+    at Object.<anonymous> (/home/pi/node_sqlite_button_pusher_1/webserver.js:113:1)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+    at Function.Module._load (module.js:312:12)
+    at Function.Module.runMain (module.js:497:10)
+    at startup (node.js:119:16)
+    at node.js:906:3

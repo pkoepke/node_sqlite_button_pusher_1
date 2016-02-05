@@ -1,4 +1,4 @@
-//"use strict";
+//"use strict"; 
 
 function httpGetAsync(theUrl, callback) {
   // default to an empty function if no callback is specified

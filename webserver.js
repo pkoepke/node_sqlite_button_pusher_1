@@ -9,7 +9,8 @@ var readFromButtonDb = require('./read_from_button_db.js');
 
 var listenPort = 8080; // was const but const is not supported in strict mode
 
-// function which handles incoming HTTP requests and potentially routes/dispatches then to the right function. We should be using httpdispatcher for routing based on URL and request type (GET/POST/etc) but this is easier.
+// function which handles incoming HTTP requests and routes/dispatches then to the right function.
+//I should use  httpdispatcher for routing based on URL and request type (GET/POST/etc) but I wanted to start simple and learn about proper dispathcing later.
 function handleRequest(request, response) {
   if (request.url.indexOf("favicon.ico") != -1) { // handle favicon.ico
     serveFavicon(request, response);
@@ -24,7 +25,7 @@ function handleRequest(request, response) {
   } else { // all other URLs get the main page with the button and entries
     serveMainPage(request, response);
   }
-  // console.log("Response sent, path '" + request.url + "'. " + "Client's IP address: " + request.connection.remoteAddress); // For testing. This results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, and any included script or CSS files.
+  // console.log("Response sent, path '" + request.url + "'. " + "Client's IP address: " + request.connection.remoteAddress); // For testing. This console.log results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, any included script or CSS files, etc.
 }
 
 function serveFavicon(request, response) {
@@ -61,42 +62,30 @@ function serveMobileCss(request, response) {
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
-    // console.log("writeToButtonDb() finished and moved on to its callback"); // for testing
     var responseBody = "";
     responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
-    /*setTimeout(*/readFromButtonDb(responseBody,
-      function(responseBodyReturn) {
-        // console.log("readFromButtonDb() finished and moved on to its callback"); // for testing
-        response.end(responseBodyReturn);
-      })/*, 5000)*/
+    readFromButtonDb(responseBody, function(responseBodyReturn) {
+      response.end(responseBodyReturn);
+    });
   });
 }
 
 function serveMainPage(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   var requestUrl = request.url.toString();
-  var responseBody = "<html><head>";
-  responseBody += "<script src='client_js.js'></script>\n";
-  responseBody += "<link rel=\"stylesheet\" href=\"styles.css\">";
-  // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
-  responseBody += "</head>\n<body>\n";
-  responseBody += "<h1>Button Presses</h1>\n";
-  responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" /></p>\n";
-  responseBody += "<div id=\"everythingAfterButton\">\n";
-  responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
-  // Finish the response by gathering all the button clicks
-  readFromButtonDb(responseBody, function(responseBodyReturn) {
-    // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
-    responseBodyReturn += "</div>\n</body>\n</html>"
-    response.end(responseBodyReturn);
+  var responseBody = "";
+  fs.readFile('./mainpage_html.html', function(err, data) {
+    responseBody += data;
+    responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
+    // Finish the response by gathering all the button clicks
+    readFromButtonDb(responseBody, function(responseBodyReturn) {
+      // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
+      responseBodyReturn += "</div>\n</body>\n</html>"
+      response.end(responseBodyReturn);
+    });
   });
 }
 
-/* http.createServer(function (request, response) {
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.end('Hello World\n');
-}).listen(listenPort); */
-
 // Start the web server, direct all requests to handleRequest()
 http.createServer(handleRequest).listen(listenPort);
-console.log('Server running at http://127.0.0.1:' + listenPort + '/');
+console.log('Server running on port ' + listenPort);
