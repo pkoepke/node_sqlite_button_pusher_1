@@ -53,8 +53,8 @@ function serveStylesCss(request, response) {
 
 function serveMobileCss(request, response) {
   response.writeHead(200, {'Content-Type': 'text/css'});
-  fs.readFile('./mobile.css', function (err, stylesCssFile) {
-    response.end(stylesCssFile);
+  fs.readFile('./mobile.css', function (err, mobileCssFile) {
+    response.end(mobileCssFile);
   });
 }
 
