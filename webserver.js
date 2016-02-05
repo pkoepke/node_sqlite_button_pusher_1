@@ -17,6 +17,8 @@ function handleRequest(request, response) {
     serveClientJs(request, response);
   } else if (request.url.indexOf("styles.css") != -1) {
     serveStylesCss(request, response);
+  } else if (request.url.indexOf("mobile.css") != -1){
+    serveMobileCss(request, response);
   } else if (request.url.indexOf("push_button") != -1) { // handle /push_button/
     handlePushButton(request, response);
   } else { // all other URLs get the main page with the button and entries
@@ -49,6 +51,13 @@ function serveStylesCss(request, response) {
   });
 }
 
+function serveMobileCss(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/css'});
+  fs.readFile('./mobile.css', function (err, stylesCssFile) {
+    response.end(stylesCssFile);
+  });
+}
+
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
@@ -68,8 +77,8 @@ function serveMainPage(request, response) {
   var requestUrl = request.url.toString();
   var responseBody = "<html><head>";
   responseBody += "<script src='client_js.js'></script>\n";
-  responseBody += "<link rel=\"stylesheet\" href=\"styles.css\">";
-  responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
+  // responseBody += "<link rel=\"stylesheet\" href=\"styles.css\">";
+  // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "</head>\n<body>\n";
   responseBody += "<h1>Button Presses</h1>\n";
   responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
