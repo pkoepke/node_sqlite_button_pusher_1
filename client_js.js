@@ -46,5 +46,5 @@ function  detectmobilebrowsers_com() {
 }
 
 if (detectmobilebrowsers_com()) {
-  document.getElementsByTagName('head').innerHTML += "<link rel=\"stylesheet\" href=\"mobile.css\">";
+  document.head.innerHTML += "<link rel=\"stylesheet\" href=\"mobile.css\">";
 }
