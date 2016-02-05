@@ -62,7 +62,7 @@ function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
     // console.log("writeToButtonDb() finished and moved on to its callback"); // for testing
-    var responseBody = "<div id=\"everythingAfterButton\">\n";
+    var responseBody = "";
     responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
     /*setTimeout(*/readFromButtonDb(responseBody,
       function(responseBodyReturn) {
