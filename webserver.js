@@ -81,7 +81,7 @@ function serveMainPage(request, response) {
   // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "</head>\n<body>\n";
   responseBody += "<h1>Button Presses</h1>\n";
-  responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" class=\"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent\" /></p>\n";
+  responseBody += "<p><input type=\"button\" value=\"Push the button!\" onclick=\"httpGetAsync('push_button',overWriteEverythingAfterButtonDiv)\" /></p>\n";
   responseBody += "<div id=\"everythingAfterButton\">\n";
   responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
   // Finish the response by gathering all the button clicks
