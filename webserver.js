@@ -77,7 +77,7 @@ function serveMainPage(request, response) {
   var requestUrl = request.url.toString();
   var responseBody = "<html><head>";
   responseBody += "<script src='client_js.js'></script>\n";
-  // responseBody += "<link rel=\"stylesheet\" href=\"styles.css\">";
+  responseBody += "<link rel=\"stylesheet\" href=\"styles.css\">";
   // responseBody += fs.readFileSync('material_design_CSS_scripts_links.html') // adds Material Design CSS and JavaScript from Google.
   responseBody += "</head>\n<body>\n";
   responseBody += "<h1>Button Presses</h1>\n";
