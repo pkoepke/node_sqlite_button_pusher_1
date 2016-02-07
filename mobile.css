@@ -1,16 +1,15 @@
-* {
-  font-size: 1.6rem;
+p {
+  font-size: 2.5rem;
+}
+
+input[type="button"] {
+    font-size: 2.5rem;
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 td, .buttonPushTime {
-  font-size: 0.9rem;
-}
-
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
+  font-size: 1.6rem;
 }
