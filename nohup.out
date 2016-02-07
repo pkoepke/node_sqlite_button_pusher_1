@@ -34,3 +34,8 @@ TypeError: Cannot call method 'writeHead' of undefined
     at Function.Module.runMain (module.js:497:10)
     at startup (node.js:119:16)
     at node.js:906:3
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080

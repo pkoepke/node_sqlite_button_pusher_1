@@ -8,16 +8,16 @@ function writeToButtonDb(ipAddress, callback) {
   if (typeof callback === 'undefined') { callback = function() {}; }
 
   db.serialize(function() {
-    db.run("CREATE TABLE if not exists button_info (datetime TEXT)");
-    var stmt = db.prepare("INSERT INTO button_info VALUES (?,?)");
+    db.run('CREATE TABLE if not exists button_info (datetime TEXT)');
+    var stmt = db.prepare('INSERT INTO button_info VALUES (?,?)');
     stmt.run(Date(), ipAddress);
     stmt.finalize(callback); // writeToButtonDb callback goes here so the callback does not run until the statement is done running.
-    /*db.each("SELECT ROWID, datetime FROM button_info", function(err, row) {
+    /*db.each('SELECT ROWID, datetime FROM button_info', function(err, row) {
       //console.log(row); // for testing
-      // console.log("Entry " + row.rowid + ": " + row.datetime); // for testing
+      // console.log('Entry ' + row.rowid + ': ' + row.datetime); // for testing
     }); */// for testing
   });
-  // console.log("writeToButtonDb() ran."); // for testing
+  // console.log('writeToButtonDb() ran.'); // for testing
 }
 
 module.exports = writeToButtonDb;

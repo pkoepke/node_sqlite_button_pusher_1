@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var http = require('http');
 var sqlite3 = require('sqlite3').verbose();
@@ -12,20 +12,20 @@ var listenPort = 8080; // was const but const is not supported in strict mode
 // function which handles incoming HTTP requests and routes/dispatches then to the right function.
 //I should use  httpdispatcher for routing based on URL and request type (GET/POST/etc) but I wanted to start simple and learn about proper dispathcing later.
 function handleRequest(request, response) {
-  if (request.url.indexOf("favicon.ico") != -1) { // handle favicon.ico
+  if (request.url.indexOf('favicon.ico') != -1) { // handle favicon.ico
     serveFavicon(request, response);
-  } else if(request.url.indexOf("client_js.js") != -1) { // handle client_js.js
+  } else if(request.url.indexOf('client_js.js') != -1) { // handle client_js.js
     serveClientJs(request, response);
-  } else if (request.url.indexOf("styles.css") != -1) {
+  } else if (request.url.indexOf('styles.css') != -1) {
     serveStylesCss(request, response);
-  } else if (request.url.indexOf("mobile.css") != -1){
+  } else if (request.url.indexOf('mobile.css') != -1){
     serveMobileCss(request, response);
-  } else if (request.url.indexOf("push_button") != -1) { // handle /push_button/
+  } else if (request.url.indexOf('push_button') != -1) { // handle /push_button/
     handlePushButton(request, response);
   } else { // all other URLs get the main page with the button and entries
     serveMainPage(request, response);
   }
-  // console.log("Response sent, path '" + request.url + "'. " + "Client's IP address: " + request.connection.remoteAddress); // For testing. This console.log results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, any included script or CSS files, etc.
+  // console.log('Response sent, path "' + request.url + '". ' + 'Client's IP address: ' + request.connection.remoteAddress); // For testing. This console.log results in nultiple console entries every time the page is refreshed because the web browser may request several files: /, favicon.ico, any included script or CSS files, etc.
 }
 
 function serveFavicon(request, response) {
@@ -62,8 +62,8 @@ function serveMobileCss(request, response) {
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
-    var responseBody = "";
-    responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
+    var responseBody = '';
+    responseBody += '<p id="currentPath">Current path: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
     readFromButtonDb(responseBody, function(responseBodyReturn) {
       response.end(responseBodyReturn);
     });
@@ -73,14 +73,14 @@ function handlePushButton(request, response) {
 function serveMainPage(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   var requestUrl = request.url.toString();
-  var responseBody = "";
+  var responseBody = '';
   fs.readFile('./mainpage_html.html', function(err, data) {
     responseBody += data;
-    responseBody += "<p id=\"currentPath\">Current path: " + request.url + "</p>\n<p id=\"clientIpAddress\">Current client's IP address: " + request.connection.remoteAddress + "</p>\n";
+    responseBody += '<p id="currentPath">Current path: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
     // Finish the response by gathering all the button clicks
     readFromButtonDb(responseBody, function(responseBodyReturn) {
-      // console.log("readFromButtonDb callback ran. responseBodyReturn: " + responseBodyReturn); // for testing
-      responseBodyReturn += "</div>\n</body>\n</html>"
+      // console.log('readFromButtonDb callback ran. responseBodyReturn: ' + responseBodyReturn); // for testing
+      responseBodyReturn += '</div>\n</body>\n</html>'
       response.end(responseBodyReturn);
     });
   });
