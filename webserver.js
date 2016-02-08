@@ -71,7 +71,7 @@ function handlePushButton(request, response) {
 }
 
 function serveMainPage(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/html'});
+  response.writeHead(200, {'Content-Type': 'text/html', 'Content-Language': 'en'});
   var requestUrl = request.url.toString();
   var responseBody = '';
   fs.readFile('./mainpage_html.html', function(err, data) {

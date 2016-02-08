@@ -7,7 +7,7 @@ function readFromButtonDb(responseBody, callback) {
   var returnRowsReverseOrder = '';
   db.all('SELECT ROWID, datetime, clientIp from button_info', function(err,rows) {
     rows.forEach(function(currentRow) {
-      returnRowsReverseOrder = '<tr><td>Entry ' + currentRow.rowid + '</td><td><span class="buttonPushTime">' + currentRow.datetime + '</span></td><td>Client IP address: ' + currentRow.clientIp + '</td></tr>\n' + returnRowsReverseOrder;
+      returnRowsReverseOrder = '<tr><td>Entry ' + currentRow.rowid + ': </td><td><span class="buttonPushTime">' + currentRow.datetime + '</span></td><td>Client IP: ' + currentRow.clientIp + '</td></tr>\n' + returnRowsReverseOrder;
     });
     returnRowsReverseOrder = '<table>\n' + returnRowsReverseOrder;
     returnRowsReverseOrder += '</table>';
