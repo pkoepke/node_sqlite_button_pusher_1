@@ -2,8 +2,8 @@ body {
   font-family: "open sans", Verdana, arial, sans-serif;
 }
 
-table, th, td, .buttonPushTime {
-  font-family: "Liberation Mono", "Droid Sans Mono", "Lucida Console", Monaco, "Courier New", Courier, Consolas, monospace;
+table {
+  font-family: "Droid Sans Mono", "Liberation Mono", "Lucida Console", "Courier New", Courier, Consolas, monospace;
 }
 
 /*table, th, td {
