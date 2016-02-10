@@ -10,3 +10,12 @@ table {
   border: 1px solid black;
   border-collapse: collapse;
 }*/
+
+#loadingSpinnerSpan {
+  /*display: none;*/
+  visibility: hidden;
+}
+
+#pushButton {
+  vertical-align: top;
+}

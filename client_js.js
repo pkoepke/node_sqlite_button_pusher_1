@@ -4,6 +4,7 @@ function httpGetAsync(theUrl, callback) {
   // default to an empty function if no callback is specified
   if (typeof callback === 'undefined') { callback = function() {}; }
   var xmlHttp = new XMLHttpRequest();
+  hideUnhideResizeLoadingSpinner('unhide');
   xmlHttp.onreadystatechange = function() {
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
       //console.log(xmlHttp.responseText); // for testing
@@ -17,6 +18,7 @@ function httpGetAsync(theUrl, callback) {
 function overWriteEverythingAfterButtonDiv(responseText) {
   document.getElementById('everythingAfterButton').innerHTML = responseText;
   convertAllTimesToClientTimezone();
+  hideUnhideResizeLoadingSpinner('hide');
 }
 
 function convertTimeToClientTimezone(dateTimeToConvert) {
@@ -34,7 +36,16 @@ function convertAllTimesToClientTimezone() {
   }
 }
 
-window.addEventListener('load',convertAllTimesToClientTimezone,false);
+function hideUnhideResizeLoadingSpinner (action) { // Hides and un-hides spinner image. Checks every time tha it's the same height as the button.
+  var pushButton = document.getElementById('pushButton');
+  var buttonOffsetHeight = document.getElementById('pushButton').offsetHeight;
+  document.getElementById('loadingSpinnerImg').style.height = buttonOffsetHeight + 'px';
+  if (action === 'hide') {
+    document.getElementById('loadingSpinnerSpan').style.visibility = 'hidden';
+  } else if (action === 'unhide') {
+    document.getElementById('loadingSpinnerSpan').style.visibility = 'visible';
+  }
+}
 
 // Courtesy of detectmobilebrowsers.com
 function  detectmobilebrowsers_com() {
@@ -48,3 +59,5 @@ function  detectmobilebrowsers_com() {
 if (detectmobilebrowsers_com()) {
   document.head.innerHTML += '<link rel="stylesheet" type="text/css" href="mobile.css">';
 }
+window.addEventListener('load',convertAllTimesToClientTimezone,false);
+window.addEventListener('load', function() { hideUnhideResizeLoadingSpinner("hide"); },false);

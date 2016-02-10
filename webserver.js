@@ -20,6 +20,10 @@ function handleRequest(request, response) {
     serveStylesCss(request, response);
   } else if (request.url.indexOf('mobile.css') != -1){
     serveMobileCss(request, response);
+  } else if (request.url.indexOf('loading_spinner.svg') != -1) { // handle /push_button/
+    serveLoadingSpinnerSvg(request, response);
+  } else if (request.url.indexOf('loading_spinner.gif') != -1) { // handle /push_button/
+    serveLoadingSpinnerGif(request, response);
   } else if (request.url.indexOf('push_button') != -1) { // handle /push_button/
     handlePushButton(request, response);
   } else { // all other URLs get the main page with the button and entries
@@ -32,7 +36,7 @@ function serveFavicon(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});-
   fs.readFile('./favicon.ico', function(err, img) {
     response.writeHead(200, {
-      'Content-Type': 'image/gif'
+      'Content-Type': 'image/png'
     });
     response.end(img, 'binary');
   });
@@ -59,11 +63,25 @@ function serveMobileCss(request, response) {
   });
 }
 
+function serveLoadingSpinnerSvg(request, response) {
+  response.writeHead(200, {'Content-Type': 'image/svg+xml', 'Vary': 'Accept-Encoding'});
+  fs.readFile('./loading_spinner.svg', function (err, loadingSpinner) {
+    response.end(loadingSpinner);
+  });
+}
+
+function serveLoadingSpinnerGif(request, response) {
+  response.writeHead(200, {'Content-Type': 'image/gif'});
+  fs.readFile('./loading_spinner.gif', function (err, loadingSpinner) {
+    response.end(loadingSpinner);
+  });
+}
+
 function handlePushButton(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   writeToButtonDb(request.connection.remoteAddress, function() {
     var responseBody = '';
-    responseBody += '<p id="currentPath">Current path: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
+    responseBody += '<p id="lastPathAccessed">Last path accessed: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
     readFromButtonDb(responseBody, function(responseBodyReturn) {
       response.end(responseBodyReturn);
     });
@@ -76,7 +94,7 @@ function serveMainPage(request, response) {
   var responseBody = '';
   fs.readFile('./mainpage_html.html', function(err, data) {
     responseBody += data;
-    responseBody += '<p id="currentPath">Current path: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
+    responseBody += '<p id="lastPathAccessed">Last path accessed: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
     // Finish the response by gathering all the button clicks
     readFromButtonDb(responseBody, function(responseBodyReturn) {
       // console.log('readFromButtonDb callback ran. responseBodyReturn: ' + responseBodyReturn); // for testing
