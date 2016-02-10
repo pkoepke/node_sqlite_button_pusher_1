@@ -11,10 +11,10 @@ h1 {
 }
 
 table {
-  font-family: monospace;
+  font-family: 'Inconsolata', monospace;
 }
 
-td, .buttonPushTime {
+td {
   font-size: 1.6rem;
 }
 

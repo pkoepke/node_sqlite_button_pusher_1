@@ -12,20 +12,22 @@ var listenPort = 8080; // was const but const is not supported in strict mode
 // function which handles incoming HTTP requests and routes/dispatches then to the right function.
 //I should use  httpdispatcher for routing based on URL and request type (GET/POST/etc) but I wanted to start simple and learn about proper dispathcing later.
 function handleRequest(request, response) {
-  if (request.url.indexOf('favicon.ico') != -1) { // handle favicon.ico
+  if (request.url.indexOf('favicon.ico') != -1) { // serve favicon.ico
     serveFavicon(request, response);
-  } else if(request.url.indexOf('client_js.js') != -1) { // handle client_js.js
+  } else if(request.url.indexOf('client_js.js') != -1) { // serve client_js.js
     serveClientJs(request, response);
-  } else if (request.url.indexOf('styles.css') != -1) {
+  } else if (request.url.indexOf('styles.css') != -1) { // serve styles.css
     serveStylesCss(request, response);
-  } else if (request.url.indexOf('mobile.css') != -1){
+  } else if (request.url.indexOf('mobile.css') != -1){ // serve mobile.css
     serveMobileCss(request, response);
-  } else if (request.url.indexOf('loading_spinner.svg') != -1) { // handle /push_button/
+  } else if (request.url.indexOf('loading_spinner.svg') != -1) { // serve spinner animation svg
     serveLoadingSpinnerSvg(request, response);
-  } else if (request.url.indexOf('loading_spinner.gif') != -1) { // handle /push_button/
+  } else if (request.url.indexOf('loading_spinner.gif') != -1) { // serve spinner animation gifs
     serveLoadingSpinnerGif(request, response);
-  } else if (request.url.indexOf('push_button') != -1) { // handle /push_button/
+  } else if (request.url.indexOf('push_button') != -1) { // handle /push_button/ by writing to DB then returning an updated entry list.
     handlePushButton(request, response);
+  } else if (request.url.indexOf('current_entries') != -1) { // serve the current list of entries, but do not write to the DB.
+    serveCurrentEntries(request, response);
   } else { // all other URLs get the main page with the button and entries
     serveMainPage(request, response);
   }
@@ -78,13 +80,15 @@ function serveLoadingSpinnerGif(request, response) {
 }
 
 function handlePushButton(request, response) {
-  response.writeHead(200, {'Content-Type': 'text/html'});
-  writeToButtonDb(request.connection.remoteAddress, function() {
-    var responseBody = '';
-    responseBody += '<p id="lastPathAccessed">Last path accessed: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
-    readFromButtonDb(responseBody, function(responseBodyReturn) {
-      response.end(responseBodyReturn);
-    });
+  writeToButtonDb(request.connection.remoteAddress, function() { serveCurrentEntries(request, response) });
+}
+
+function serveCurrentEntries(request, response) {
+  response.writeHead(200, {'Content-Type': 'text/html', 'Access-Control-Allow-Origin': '*'});
+  var responseBody = '';
+  responseBody += '<p id="lastPathAccessed">Last path accessed: ' + request.url + '</p>\n<p id="clientIpAddress">Current client\'s IP address: ' + request.connection.remoteAddress + '</p>\n';
+  readFromButtonDb(responseBody, function(responseBodyReturn) {
+    response.end(responseBodyReturn);
   });
 }
 

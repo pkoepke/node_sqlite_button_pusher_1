@@ -1,9 +1,17 @@
 body {
   font-family: "open sans", Verdana, arial, sans-serif;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+h1 {
+  margin-top: 10px;
 }
 
 table {
-  font-family: Consolas, "Courier New", "Liberation Mono", monospace;
+  font-family: 'Inconsolata', Consolas, "Courier New", "Liberation Mono", monospace;
 }
 
 #loadingSpinnerSpan {
