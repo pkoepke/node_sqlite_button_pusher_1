@@ -37,13 +37,13 @@ function convertAllTimesToClientTimezone() {
 }
 
 function hideUnhideResizeLoadingSpinner (action) { // Hides and un-hides spinner image. Checks every time tha it's the same height as the button.
-  var pushButton = document.getElementById('pushButton');
   var buttonOffsetHeight = document.getElementById('pushButton').offsetHeight;
-  document.getElementById('loadingSpinnerImg').style.height = buttonOffsetHeight + 'px';
+  var loadingSpinnerImg = document.getElementById('loadingSpinnerImg');
+  loadingSpinnerImg.style.height = buttonOffsetHeight + 'px';
   if (action === 'hide') {
-    document.getElementById('loadingSpinnerSpan').style.visibility = 'hidden';
+    loadingSpinnerImg.style.visibility = 'hidden';
   } else if (action === 'unhide') {
-    document.getElementById('loadingSpinnerSpan').style.visibility = 'visible';
+    loadingSpinnerImg.style.visibility = 'visible';
   }
 }
 
