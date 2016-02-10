@@ -3,7 +3,7 @@ body {
 }
 
 table {
-  font-family: "Liberation Mono", "Lucida Console", "Courier New", Courier, Consolas, monospace;
+  font-family: Consolas, "Courier New", "Liberation Mono", monospace;
 }
 
 /*table, th, td {
