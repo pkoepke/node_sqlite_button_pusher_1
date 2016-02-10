@@ -1,3 +1,7 @@
+html * { /* Hack to disable Chrome font boosting. Breaks small screen emulation in desktop Chrome. */
+  max-height:1000000px;
+}
+
 input[type="button"] {
   font-size: 2.5rem;
 }
@@ -15,7 +19,7 @@ td, .buttonPushTime {
 }
 
 p {
-  font-size: 2.49rem;
-  /*(font-size: 39.9px;*/
-  /* bizzarre - this breaks in Chrome for Android (and when emulating an Nexus 5 in the desktop) when you push the button to reload the HTML and the font-size is 40px plus or evaluates to 40px plus (so 2.5rem+). Any size below that works fine.*/
+  font-size: 2.5rem;
+  /*font-size: 39.9px;*/
+  /* Due to Chrome's bizzarre "font boosting", this breaks in Chrome for Android (and when emulating an Nexus 5 in the desktop) when you push the button to reload the HTML and the font-size is 40px plus or evaluates to 40px plus (so 2.5rem+). Any size below that works fine. Had to include the html * { max-height:1000000px; } hack above to disable font boosting. */
 }
