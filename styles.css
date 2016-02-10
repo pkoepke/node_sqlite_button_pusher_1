@@ -6,13 +6,7 @@ table {
   font-family: Consolas, "Courier New", "Liberation Mono", monospace;
 }
 
-/*table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}*/
-
 #loadingSpinnerSpan {
-  /*display: none;*/
   visibility: hidden;
 }
 
