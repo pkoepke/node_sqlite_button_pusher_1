@@ -1,4 +1,4 @@
-//"use strict";
+"use strict";
 
 function httpGetAsync(theUrl, callback) {
   // default to an empty function if no callback is specified
@@ -11,7 +11,7 @@ function httpGetAsync(theUrl, callback) {
       callback(xmlHttp.responseText);
     }
   };
-  xmlHttp.open('GET', theUrl, true); // true for asynchronous
+  xmlHttp.open('GET', theUrl, true); // third parameter should be 'true' for asynchronous or 'false' for sync. We want an async call so it's set to true'.
   xmlHttp.send(null);
 }
 

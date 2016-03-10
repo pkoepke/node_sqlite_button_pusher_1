@@ -90,3 +90,68 @@ SyntaxError: Unexpected token )
     at node.js:906:3
 Server running on port 8080
 Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+
+events.js:72
+        throw er; // Unhandled 'error' event
+              ^
+Error: listen EADDRINUSE
+    at errnoException (net.js:904:11)
+    at Server._listen2 (net.js:1042:14)
+    at listen (net.js:1064:10)
+    at Server.listen (net.js:1138:5)
+    at startWebServer (/home/pi/node_sqlite_button_pusher_1/webserver.js:129:36)
+    at cacheDbResponseHtml (/home/pi/node_sqlite_button_pusher_1/webserver.js:124:3)
+    at Object.<anonymous> (/home/pi/node_sqlite_button_pusher_1/webserver.js:134:1)
+    at Module._compile (module.js:456:26)
+    at Object.Module._extensions..js (module.js:474:10)
+    at Module.load (module.js:356:32)
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+Server running on port 8080
+
+/home/pi/node_sqlite_button_pusher_1/webserver.js:92
+  response.end(loadingSpinner);
+               ^
+ReferenceError: loadingSpinner is not defined
+    at serveLoadingSpinnerGif (/home/pi/node_sqlite_button_pusher_1/webserver.js:92:16)
+    at Server.handleRequest (/home/pi/node_sqlite_button_pusher_1/webserver.js:36:5)
+    at Server.emit (events.js:98:17)
+    at HTTPParser.parser.onIncoming (http.js:2108:12)
+    at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
+    at Socket.socket.ondata (http.js:1966:22)
+    at TCP.onread (net.js:527:27)
+Server running on port 8080
+Server running on port 8080
+
+/home/pi/node_sqlite_button_pusher_1/webserver.js:123
+  responseBody += data;
+                  ^
+ReferenceError: data is not defined
+    at serveMainPage (/home/pi/node_sqlite_button_pusher_1/webserver.js:123:19)
+    at Server.handleRequest (/home/pi/node_sqlite_button_pusher_1/webserver.js:42:5)
+    at Server.emit (events.js:98:17)
+    at HTTPParser.parser.onIncoming (http.js:2108:12)
+    at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
+    at Socket.socket.ondata (http.js:1966:22)
+    at TCP.onread (net.js:527:27)
+Server running on port 8080
+
+/home/pi/node_sqlite_button_pusher_1/webserver.js:123
+  responseBody += data;
+                  ^
+ReferenceError: data is not defined
+    at serveMainPage (/home/pi/node_sqlite_button_pusher_1/webserver.js:123:19)
+    at Server.handleRequest (/home/pi/node_sqlite_button_pusher_1/webserver.js:42:5)
+    at Server.emit (events.js:98:17)
+    at HTTPParser.parser.onIncoming (http.js:2108:12)
+    at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:121:23)
+    at Socket.socket.ondata (http.js:1966:22)
+    at TCP.onread (net.js:527:27)
+Server running on port 8080
+Server running on port 8080
