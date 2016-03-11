@@ -1,14 +1,14 @@
 body {
   font-family: "open sans", Verdana, arial, sans-serif;
-  margin-left: 2%;
+  /*margin-left: 2%;
   margin-right: 2%;
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 0px;*/
 }
 
-h1 {
+/*h1 {
   margin-top: 10px;
-}
+}*/
 
 table {
   font-family: 'Inconsolata', Consolas, "Courier New", "Liberation Mono", monospace;
@@ -20,4 +20,19 @@ table {
 
 #pushButton {
   vertical-align: top;
+}
+
+/* Styles from http://bettermotherfuckingwebsite.com with some adjustments */
+body {
+  margin:40px auto;
+  max-width:95%;
+  line-height:1.6;
+  color: #444; /* original from the website, equivalent to #444444 */
+  color: #333; /* my override */
+  font-size:18px;
+  padding:0 10px
+}
+
+h1,h2,h3 {
+  line-height:1.2
 }
