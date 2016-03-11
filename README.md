@@ -18,4 +18,4 @@ Serving an image: http://stackoverflow.com/a/5826883
 Client JS to read a URL: http://stackoverflow.com/a/4033310
 
 Style notes:
-# JavaScript files use single quotes. HTML files, HTML within JS files, and CSS files get double quotes. JSON files get double quotes per the JSON standard.
+* JavaScript files use single quotes. HTML files, HTML within JS files, and CSS files get double quotes. JSON files get double quotes per the JSON standard.
