@@ -157,3 +157,19 @@ Server running on port 8080
 Server running on port 8080
 Server running on port 8080
 Server running on port 8080
+Server running on port 8080
+module.js:327
+    throw err;
+    ^
+
+Error: Cannot find module '/home/pi/node_sqlite_button_pusher_1/node_modules/sqlite3/lib/binding/node-v46-linux-arm/node_sqlite3.node'
+    at Function.Module._resolveFilename (module.js:325:15)
+    at Function.Module._load (module.js:276:25)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Object.<anonymous> (/home/pi/node_sqlite_button_pusher_1/node_modules/sqlite3/lib/sqlite3.js:4:15)
+    at Module._compile (module.js:409:26)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
